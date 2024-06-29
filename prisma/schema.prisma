@@ -19,11 +19,15 @@ model User {
   hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  spots Spot[]
+  reviews Review[]
+  bookings Booking[]
 }
 
 model Spot {
   id  String @id @default(uuid())
-  //owner id
+  userId String
   address String
   city String
   state String
@@ -33,4 +37,57 @@ model Spot {
   price Decimal
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviews Review[]
+  bookings Booking[]
+  spotImages SpotImages[]
+}
+
+model Review {
+  id  String @id @default(uuid())
+  spotId String
+  userId String
+  review String
+  stars Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  spot Spot @relation(fields: [spotId], references: [id], onDelete: Restrict)
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+  reviewImages ReviewImages[]
+}
+
+model Booking {
+  id  String @id @default(uuid())
+  spotId String
+  userId String
+  startDate DateTime
+  endDate DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  spot Spot @relation(fields: [spotId], references: [id], onDelete: Restrict)
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+}
+
+model ReviewImages {
+  id  String @id @default(uuid())
+  reviewId String
+  url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Restrict)
+}
+
+model SpotImages {
+  id  String @id @default(uuid())
+  spotId String
+  url String
+  preview Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  spot Spot @relation(fields: [spotId], references: [id], onDelete: Restrict)
 }
