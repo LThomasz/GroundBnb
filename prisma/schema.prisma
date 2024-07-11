@@ -53,7 +53,7 @@ model Review {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  spot Spot @relation(fields: [spotId], references: [id], onDelete: Restrict)
+  spot Spot @relation(fields: [spotId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Restrict)
   reviewImages ReviewImages[]
 }
