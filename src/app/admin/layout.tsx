@@ -1,10 +1,15 @@
+import { Nav, NavLink } from "@/components/Nav";
+
 export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return <>
-    <Nav></Nav>
+    <Nav>
+      <NavLink href="/admin">Dashboard</NavLink>
+      <NavLink href="/spots">Products</NavLink>
+    </Nav>
     <div className="container my-6">{children}</div>
   </>
 }
