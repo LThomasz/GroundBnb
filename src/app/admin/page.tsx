@@ -1,3 +1,9 @@
+import { Card } from "@/components/ui/card";
+
 export default function AdminDashboard() {
-  return <h1>Dashboard</h1>
+  return (
+    <div>
+      <Card></Card>
+    </div>
+  )
 }
